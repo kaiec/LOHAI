@@ -15,7 +15,9 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,7 +62,11 @@ public class LOHAI {
             this.conceptScheme = conceptScheme;
             this.recordSet = recordSet;
         try {
-            File file = new File(getClass().getResource("left3words-wsj-0-18.tagger").toURI());
+            URL url = getClass().getResource("left3words-wsj-0-18.tagger");
+            log.fine("Tagger URL: " + url);
+            URI uri = url.toURI();
+            log.fine("Tagger URI: " + uri);
+            File file = new File(uri);
             tagger = new MaxentTagger(file.getAbsolutePath());
         } catch (URISyntaxException ex) {
             Logger.getLogger(LOHAI.class.getName()).log(Level.SEVERE, null, ex);
